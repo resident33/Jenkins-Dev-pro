@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage ('Clone') {
+            steps {
+                print 'Clone from GIT' 
+            }
+        }
+        
+        stage ('Build'){
+            steps{
+                print 'Hello'
+                print 'world'
+            }
+        }
+        
+        stage ('Test'){
+            steps{
+                print 'Test'
+				sh "ping -a google.com"
+                print 'Good'
+            }
+        }  
+        
+        stage ('Deploy'){
+            steps{
+                print 'Hello'
+                print 'world'
+            }
+        }
+    }    
+}
