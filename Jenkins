@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage ('Clone') {
             steps {
-                print 'Clone from GIT' 
+                echo "${params.Greeting} World!" 
             }
         }
         
