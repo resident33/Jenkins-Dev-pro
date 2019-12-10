@@ -1,34 +1,41 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world?')
+        string(name: 'Ip', defaultValue: 'localhost', description: 'Ip or dnsname instance')
+        string(name: 'User', defaultValue: 'user', description: 'Enter username for ssh')
+        string(name: 'Password', defaultValue: 'password', description: 'Enter password for ssh')
+
     }
     stages {
-        stage ('Clone') {
+        stage ('Connect to instance') {
             steps {
-                echo "${params.Greeting} World!" 
+                sh 'ssh ${params.User}@${params.Ip}'
+                sh 'su -'
+                sh 'apt update -y'
+                sh 'apt install nodejs -y'
+                echo "Done" 
             }
         }
-        
+
         stage ('Build'){
             steps{
                 print 'Hello'
                 print 'world'
             }
         }
-        
+
         stage ('Test'){
             steps{
                 print 'Hello'
                 print 'world'
             }
-        }  
-        
+        }
+
         stage ('Deploy'){
             steps{
                 print 'Hello'
                 print 'world'
             }
         }
-    }    
+    }
 }
