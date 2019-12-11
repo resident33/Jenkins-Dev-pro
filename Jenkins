@@ -16,6 +16,7 @@ pipeline {
                 sh 'echo "${params.sshkey}" | tr -d "\r" > ~/.ssh/key.pem'
                 sh 'chmod 700 ~/.ssh'
                 sh 'chmod 600 ~/.ssh/key.pem'
+                sh 'cat ~/.ssh/key.pem'
                 sh 'ssh -i ~/.ssh/key.pem ${params.User}@${params.Ip}'
                 sh 'yes'
                 sh 'su -'
