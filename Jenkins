@@ -23,7 +23,8 @@ pipeline {
                      sh 'cat ~/.ssh/key.pem'
                      sh 'ssh -i ~/.ssh/key.pem ${params.User}@${params.Ip}'
                      sh 'yes'
-                     echo "Done"
+                     sh 'exit'
+                     print 'Good'
                   }
                 }
                 sh 'su -'
