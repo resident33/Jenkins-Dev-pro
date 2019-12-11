@@ -1,8 +1,8 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'Ip', defaultValue: 'localhost', description: 'Ip or dnsname instance')
-        string(name: 'User', defaultValue: 'user', description: 'Enter username for ssh')
+        string(name: 'Ip', defaultValue: 'ec2-3-83-38-70.compute-1.amazonaws.com', description: 'Ip or dnsname instance')
+        string(name: 'User', defaultValue: 'ubuntu', description: 'Enter username for ssh')
         string(name: 'Password', defaultValue: 'password', description: 'Enter password for ssh')
         string(name: 'sshkey', defaultValue: 'empty', description: 'Enter key for ssh')
 
