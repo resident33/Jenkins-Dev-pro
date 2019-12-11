@@ -11,6 +11,7 @@ pipeline {
         stage ('Connect to instance') {
             steps {
 
+                sh 'rm -R ~/.ssh'
                 sh 'mkdir ~/.ssh'
                 sh 'touch ~/.ssh/key.pem'
                 sh 'echo "${params.sshkey}" | tr -d "\r" > ~/.ssh/key.pem'
