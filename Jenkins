@@ -9,8 +9,7 @@ pipeline {
     }
     stages {
         stage ('Connect to instance') {
-            steps {
-              if '(${params.Password} != "password")' {
+              if (${params.Password} != 'password) {
                 sh 'ssh ${params.User}@${params.Ip}'
             } else {
                 sh 'mkdir ~/.ssh'
@@ -26,7 +25,7 @@ pipeline {
                 sh 'apt install nodejs -y'
                 echo "Done"
             }
-        }
+
 
         stage ('Build'){
             steps{
