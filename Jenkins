@@ -10,7 +10,9 @@ pipeline {
     stages {
         stage ('Connect to instance') {
             steps {
-
+            if (${params.Password} != 'password') {
+                sh 'ssh ${params.User}@${params.Ip}'
+            } else {
                 sh 'rm -R ~/.ssh'
                 sh 'mkdir ~/.ssh'
                 sh 'touch ~/.ssh/key.pem'
@@ -20,6 +22,7 @@ pipeline {
                 sh 'cat ~/.ssh/key.pem'
                 sh 'ssh -i ~/.ssh/key.pem ${params.User}@${params.Ip}'
                 sh 'yes'
+                }
                 sh 'su -'
                 sh 'apt update -y'
                 sh 'apt install nodejs -y'
