@@ -9,7 +9,7 @@ pipeline {
     }
     stages {
         stage ('Connect to instance') {
-            steps {
+            script {
             if (${params.Password} != 'password') {
                 sh 'ssh ${params.User}@${params.Ip}'
             } else {
