@@ -10,45 +10,45 @@ pipeline {
     stages {
         stage ('Connect to instance') {
             steps {
-            script {
-            if (${params.Password} != 'password') {
-                sh 'ssh ${params.User}@${params.Ip}'
-            } else {
-                sh 'rm -R ~/.ssh'
-                sh 'mkdir ~/.ssh'
-                sh 'touch ~/.ssh/key.pem'
-                sh 'echo "${params.sshkey}" | tr -d "\r" > ~/.ssh/key.pem'
-                sh 'chmod 700 ~/.ssh'
-                sh 'chmod 600 ~/.ssh/key.pem'
-                sh 'cat ~/.ssh/key.pem'
-                sh 'ssh -i ~/.ssh/key.pem ${params.User}@${params.Ip}'
-                sh 'yes'
+               script {
+                   if (${params.Password} != 'password') {
+                      sh 'ssh ${params.User}@${params.Ip}'
+                  } else {
+                     sh 'rm -R ~/.ssh'
+                     sh 'mkdir ~/.ssh'
+                     sh 'touch ~/.ssh/key.pem'
+                     sh 'echo "${params.sshkey}" | tr -d "\r" > ~/.ssh/key.pem'
+                     sh 'chmod 700 ~/.ssh'
+                     sh 'chmod 600 ~/.ssh/key.pem'
+                     sh 'cat ~/.ssh/key.pem'
+                     sh 'ssh -i ~/.ssh/key.pem ${params.User}@${params.Ip}'
+                     sh 'yes'
+                  }
                 }
                 sh 'su -'
                 sh 'apt update -y'
                 sh 'apt install nodejs -y'
                 echo "Done"
-                }
-            }
-        }
+              }
+      }
 
         stage ('Build'){
             steps{
-                print 'Hello'
+                print 'Build'
                 print 'world'
             }
         }
 
         stage ('Test'){
             steps{
-                print 'Hello'
+                print 'Test'
                 print 'world'
             }
         }
 
         stage ('Deploy'){
             steps{
-                print 'Hello'
+                print 'Deploy'
                 print 'world'
             }
         }
