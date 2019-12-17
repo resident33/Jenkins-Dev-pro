@@ -21,7 +21,7 @@ Steps:
 ![Build_with_Parameters](https://github.com/resident33/Jenkins-Dev-pro/blob/master/src/Build_with_Parameters.jpg)
 
 Вводим параметры:
-DNS имя или Ip сервера где будем собирать и разворачевать апи.
+DNS имя или Ip сервера где будем собирать и разворачивать апи.
 
 Имя пользователя у которого есть доступ по ssh на сервер.
 
