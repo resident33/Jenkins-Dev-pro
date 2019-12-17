@@ -10,20 +10,20 @@ Steps:
 В пайплайне можно использовать bash скрипты, докер, переменные окружения,  aws cli, etc. Пайплай должен запускаться на новосозданном Jenkins (можно использовать любые Jenkins plugins, но их список добавьте в readme Вашего репозитория
 ### **Manual:**
 Создаем pipeline, указываем ссылку на гит, аккаунт с паролем и файл Jenkins.
-![Advanced_Project_Options]()
+![Advanced_Project_Options](https://github.com/resident33/Jenkins-Dev-pro/blob/master/src/Advanced_Project_Options.jpg)
 
 Далее запускаем Build. Так как pipeline искользует параметры первый запуск пройдет со статусом Fail. Все норм так задуманно ;)
-![Build_Fail]()
+![Build_Fail](https://github.com/resident33/Jenkins-Dev-pro/blob/master/src/Build_Fail.jpg)
 
 При втором запуске появиться пункт Build with Parameters.
-![Build_with_Parameters]()
+![Build_with_Parameters](https://github.com/resident33/Jenkins-Dev-pro/blob/master/src/Build_with_Parameters.jpg)
 
 Вводим параметры:
 DNS имя или Ip сервера где будем собирать и разворачевать апи.
 Имя пользователя у которого есть доступ по ssh на сервер.
 И ключ для подключения к серверу. (Скопировать и вставить внутрянку)
 Запускаем Build
-![Build_with_Parameters2]()
+![Build_with_Parameters2](https://github.com/resident33/Jenkins-Dev-pro/blob/master/src/Build_with_Parameters2.jpg)
 
 Как видим все прошло хорошо.
-![Build_Success]()
+![Build_Success](https://github.com/resident33/Jenkins-Dev-pro/blob/master/src/Build_Success.jpg)
