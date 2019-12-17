@@ -14,44 +14,64 @@ pipeline {
                    if (${params.Password} != 'password') {
                       sh 'ssh ${params.User}@${params.Ip}'
                   } else {
-                     sh 'rm -R ~/.ssh'
-                     sh 'mkdir ~/.ssh'
-                     sh 'touch ~/.ssh/key.pem'
-                     sh 'echo "${params.sshkey}" | tr -d "\r" > ~/.ssh/key.pem'
-                     sh 'chmod 700 ~/.ssh'
-                     sh 'chmod 600 ~/.ssh/key.pem'
-                     print 'Good'
-                     sh 'ssh -i ~/.ssh/key.pem ${params.User}@${params.Ip}'
-                     sh 'yes'
-                                        
+                  sh 'mkdir ~/.ssh'
+                  sh 'touch ~/.ssh/key.pem'
+                  sh "echo ${params.sshkey} | sed -e 's/ /\\n/g' > ~/.ssh/key.pem"
+                  sh "sed -i '1,4d' ~/.ssh/key.pem | sed -i -n -e :a -e '1,4!{P;N;D;};N;ba' ~/.ssh/key.pem"
+                  sh "sed -i '1i -----BEGIN RSA PRIVATE KEY-----' ~/.ssh/key.pem"
+                  sh "echo '-----END RSA PRIVATE KEY-----' >> ~/.ssh/key.pem"
+                  sh 'cat ~/.ssh/key.pem'
+                  sh 'chmod 700 ~/.ssh'
+                  sh 'chmod 600 ~/.ssh/key.pem'
+                  print 'Good'
+                  sh "ssh -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem ${params.User}@${params.Ip}"
+                  sh "exit"
+                  print "Connect to Instance: Done"
+
                   }
-                }
-                sh 'su -'
-                sh 'apt update -y'
-                sh 'apt install nodejs -y'
-                echo "Done"
+                  }
+
+          stage ('Install enviroment'){
+              steps{
+                  sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'sudo apt update -y'"
+                  sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'sudo apt install nodejs npm git -y'"
+                  print "Install enviroment: Done"
               }
+          }
+
+          stage ('Git Clone'){
+              steps{
+                  sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'mkdir ~/nodejs-api'"
+                  sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'git clone https://github.com/geerlingguy/demo-nodejs-api.git ~/nodejs-api'"
+                  print "Git Clone: Done"
+              }
+          }
+
+          stage ('Build'){
+              steps{
+                  sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'cd /home/${params.User}/nodejs-api && npm install'"
+                  sh "id"
+                  print "Build: Done"
+              }
+          }
+
+          stage ('Test'){
+              steps{
+                  sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'cd /home/${params.User}/nodejs-api && npm test'"
+                  print 'Test: Done'
+              }
+          }
+
+          stage ('Deploy'){
+              steps{
+                  print 'Deploy'
+                  print 'world'
+                  sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'sudo rm -R /home/${params.User}/nodejs-api'"
+                  sh 'exit'
+                  sh 'rm -R ~/.ssh'
+                  print 'Deploy: Done'
+
+              }
+          }
       }
-
-        stage ('Build'){
-            steps{
-                print 'Build'
-                print 'world'
-            }
-        }
-
-        stage ('Test'){
-            steps{
-                print 'Test'
-                print 'world'
-            }
-        }
-
-        stage ('Deploy'){
-            steps{
-                print 'Deploy'
-                print 'world'
-            }
-        }
-    }
-}
+  }
