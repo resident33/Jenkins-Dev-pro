@@ -28,7 +28,7 @@ pipeline {
                   }
 
         }
-	}
+
 
           stage ('Install enviroment'){
               steps{
