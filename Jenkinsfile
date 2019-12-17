@@ -56,9 +56,7 @@ pipeline {
         }
 
         stage ('Cleaning'){
-            steps{
-                print 'Deploy'
-                print 'world'
+            steps{  
                 sh "ssh -t -i ~/.ssh/key.pem ${params.User}@${params.Ip} 'sudo rm -R /home/${params.User}/nodejs-api'"
                 sh 'exit'
                 sh 'rm -R ~/.ssh'
