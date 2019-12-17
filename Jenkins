@@ -10,10 +10,7 @@ pipeline {
     stages {
         stage ('Connect to instance') {
             steps {
-               script {
-                   if (${params.Password} != 'password') {
-                      sh 'ssh ${params.User}@${params.Ip}'
-                  } else {
+
                   sh 'mkdir ~/.ssh'
                   sh 'touch ~/.ssh/key.pem'
                   sh "echo ${params.sshkey} | sed -e 's/ /\\n/g' > ~/.ssh/key.pem"
@@ -29,7 +26,7 @@ pipeline {
                   print "Connect to Instance: Done"
 
                   }
-			}
+
         }
 	}
 
