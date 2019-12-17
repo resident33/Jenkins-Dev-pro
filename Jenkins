@@ -29,7 +29,9 @@ pipeline {
                   print "Connect to Instance: Done"
 
                   }
-                  }
+			}
+        }
+	}
 
           stage ('Install enviroment'){
               steps{
